@@ -1,0 +1,7 @@
+C:\Users\Tulimyrsky\Desktop\dot net\ViewModel\bin\Debug\ViewModel.dll
+C:\Users\Tulimyrsky\Desktop\dot net\ViewModel\bin\Debug\ViewModel.pdb
+C:\Users\Tulimyrsky\Desktop\dot net\ViewModel\bin\Debug\Model.dll
+C:\Users\Tulimyrsky\Desktop\dot net\ViewModel\bin\Debug\Model.pdb
+C:\Users\Tulimyrsky\Desktop\dot net\ViewModel\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Tulimyrsky\Desktop\dot net\ViewModel\obj\Debug\ViewModel.dll
+C:\Users\Tulimyrsky\Desktop\dot net\ViewModel\obj\Debug\ViewModel.pdb

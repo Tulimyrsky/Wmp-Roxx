@@ -1,0 +1,7 @@
+C:\Users\Tulimyrsky\Desktop\dot net\ViewModel\bin\Release\ViewModel.dll
+C:\Users\Tulimyrsky\Desktop\dot net\ViewModel\bin\Release\ViewModel.pdb
+C:\Users\Tulimyrsky\Desktop\dot net\ViewModel\bin\Release\Model.dll
+C:\Users\Tulimyrsky\Desktop\dot net\ViewModel\bin\Release\Model.pdb
+C:\Users\Tulimyrsky\Desktop\dot net\ViewModel\obj\Release\ResolveAssemblyReference.cache
+C:\Users\Tulimyrsky\Desktop\dot net\ViewModel\obj\Release\ViewModel.dll
+C:\Users\Tulimyrsky\Desktop\dot net\ViewModel\obj\Release\ViewModel.pdb

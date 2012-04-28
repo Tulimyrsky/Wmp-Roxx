@@ -1,0 +1,5 @@
+C:\Users\Tulimyrsky\Desktop\dot net\Model\bin\Release\Model.dll
+C:\Users\Tulimyrsky\Desktop\dot net\Model\bin\Release\Model.pdb
+C:\Users\Tulimyrsky\Desktop\dot net\Model\obj\Release\ResolveAssemblyReference.cache
+C:\Users\Tulimyrsky\Desktop\dot net\Model\obj\Release\Model.dll
+C:\Users\Tulimyrsky\Desktop\dot net\Model\obj\Release\Model.pdb
