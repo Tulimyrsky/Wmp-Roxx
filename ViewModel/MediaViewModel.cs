@@ -111,9 +111,6 @@ namespace ViewModel
                           case 2 :
                               m_media = MediaMgr.ImageMedias.ToList<IMedia>();
                               break;
-                          default :
-                              Console.WriteLine("++++++++++++++++++++++++Mega prout tu prends cher babtard +++++ " + index.ToString());
-                              break;
                       }
                       
                   }
