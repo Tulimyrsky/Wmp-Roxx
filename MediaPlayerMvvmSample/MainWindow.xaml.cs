@@ -26,9 +26,11 @@ namespace MediaPlayerMvvmSample
 
         private void tabControl1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            char[]  split = { ':', ' ' };
-            var viewmodel = (ViewModel.MediaViewModel)this.DataContext;
-            viewmodel.ListCommand.Execute(sender.ToString().Split(split).Last());
+            if (this.DataContext is ViewModel.MediaViewModel)
+            {
+                var viewmodel = (ViewModel.MediaViewModel)this.DataContext;
+                viewmodel.ListCommand.Execute(tabControl1.SelectedIndex);
+            }
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

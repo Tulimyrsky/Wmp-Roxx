@@ -71,7 +71,18 @@
             </TabItem>
             <TabItem Header="Image" Name="Image">
                 <Grid>
-                    <ListBox ItemsSource="{Binding Media}" SelectedIndex="{Binding Index}" Margin="6" SelectionChanged="ListBox_SelectionChanged" />
+                    <ListBox ItemsSource="{Binding Media}" SelectedIndex="{Binding Index}" Margin="6" SelectionChanged="ListBox_SelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Path=FileName}"></TextBlock>
+                                    <TextBlock Text="{Binding Path=Name}"></TextBlock>
+                                    <TextBlock Text="{Binding Path=Artist}"></TextBlock>
+                                    <TextBlock Text="{Binding Path=Album}"></TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </Grid>
             </TabItem>
         </TabControl>

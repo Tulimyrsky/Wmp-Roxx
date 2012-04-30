@@ -100,15 +100,15 @@ namespace ViewModel
             {
                 ActionP = (object index) =>
                   {
-                      switch (index.ToString())
+                      switch ((int)index)
                       {
-                          case "1" :
+                          case 0 :
                               m_media = MediaMgr.VideoMedias.ToList<IMedia>();
                               break;
-                          case "2" :
+                          case 1 :
                               m_media = MediaMgr.AudioMedias.ToList<IMedia>();
                               break;
-                          case "3" :
+                          case 2 :
                               m_media = MediaMgr.ImageMedias.ToList<IMedia>();
                               break;
                           default :
