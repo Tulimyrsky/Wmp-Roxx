@@ -6,10 +6,11 @@ using System.Windows.Input;
 
 namespace ViewModel
 {
+    
     public class ActionCommand : ICommand
     {
-
-        public Action Action { get; set; }
+        public Action         Action { get; set; }
+        public Action<object> ActionP { get; set; }
 
         public bool CanExecute(object parameter)
         {
@@ -22,6 +23,8 @@ namespace ViewModel
         {
             if (Action != null)
                 Action.Invoke();
+            if (ActionP != null)
+                ActionP.Invoke(parameter);
         }
     }
 }

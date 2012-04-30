@@ -6,19 +6,11 @@ using System.IO;
 
 namespace Model
 {
-    public class MediaAudio
+    public class MediaAudio : IMedia
     {
         char[] delim = { '/'};
 
         #region Properties
-
-        public string FileName  { get; private set; }
-        public string Name      { get; private set; }
-        public string Title     { get; private set; }
-        public string Singer    { get; private set; }
-        public string Album     { get; private set; }
-        public string Year      { get; private set; }
-        public string Comm      { get; private set; }
 
         #endregion
 
@@ -43,18 +35,10 @@ namespace Model
                         if (System.Text.Encoding.Default.GetString(bytes, 0, 3).CompareTo("TAG") == 0)
                         {
                             Title = System.Text.Encoding.Default.GetString(bytes, 3, 30);
-                            Singer = System.Text.Encoding.Default.GetString(bytes, 33, 30);
+                            Artist = System.Text.Encoding.Default.GetString(bytes, 33, 30);
                             Album = System.Text.Encoding.Default.GetString(bytes, 63, 30);
                             Year = System.Text.Encoding.Default.GetString(bytes, 93, 4);
                             Comm = System.Text.Encoding.Default.GetString(bytes, 97, 30);
-
-                            System.Console.WriteLine("=======================");
-                            System.Console.WriteLine("Title: " + Title);
-                            System.Console.WriteLine("Singer: " + Singer);
-                            System.Console.WriteLine("Album: " + Album);
-                            System.Console.WriteLine("Year: " + Year);
-                            System.Console.WriteLine("Comment: " + Comm);
-                            System.Console.WriteLine("=======================");
                         }
                     }
                     catch (Exception) { }

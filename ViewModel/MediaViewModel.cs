@@ -13,9 +13,7 @@ namespace ViewModel
     {
         #region Fields
 
-        private List<string> m_video;
-        private List<string> m_audio;
-        private List<string> m_image;
+        private List<IMedia> m_media;
         private int m_where;
         private string m_mediaFileName;
         private int m_index;
@@ -24,51 +22,24 @@ namespace ViewModel
 
         #region Properties
 
-        public List<string> Videos
+        public List<IMedia> Media
         {
             get
-            {return m_video;}
+            { return m_media; }
             set
             {
-                if (m_video != value)
-                {
-           
-                    m_video = value;
-                    OnPropertyChanged("Videos");
-                }
-            }
-        }
-
-        public List<string> Audios
-        {
-            get {return m_audio; }
-            set
-            {
-                if (m_audio != value)
-                {
- 
-                    m_audio = value;
-                    OnPropertyChanged("Audios");
-                }
-            }
-        }
-
-        public List<string> Images
-        {
-            get {return m_image; }
-            set
-            {
-                if (m_image != value)
+                if (m_media != value)
                 {
 
-                    m_image = value;
-                    OnPropertyChanged("Images");
+                    m_media = value;
+                    OnPropertyChanged("Media");
                 }
             }
         }
 
         public ActionCommand PlayCommand { get; private set; }
         public ActionCommand PauseCommand { get; private set; }
+        public ActionCommand ListCommand { get; private set; }
 
         public int Index
         {
@@ -125,6 +96,29 @@ namespace ViewModel
 
         public MediaViewModel()
         {
+            ListCommand = new ActionCommand()
+            {
+                ActionP = (object index) =>
+                  {
+                      switch (index.ToString())
+                      {
+                          case "1" :
+                              m_media = MediaMgr.VideoMedias.ToList<IMedia>();
+                              break;
+                          case "2" :
+                              m_media = MediaMgr.AudioMedias.ToList<IMedia>();
+                              break;
+                          case "3" :
+                              m_media = MediaMgr.ImageMedias.ToList<IMedia>();
+                              break;
+                          default :
+                              Console.WriteLine("++++++++++++++++++++++++Mega prout tu prends cher babtard +++++ " + index.ToString());
+                              break;
+                      }
+                      
+                  }
+            };
+
             PlayCommand = new ActionCommand()
             {
                 Action = () =>
@@ -153,9 +147,7 @@ namespace ViewModel
                 }
             };
 
-            m_video = new List<string>();
-            m_audio = new List<string>();
-            m_image = new List<string>();
+            m_media = new List<IMedia>();
 
             Initialze();
         }
@@ -169,9 +161,7 @@ namespace ViewModel
         {
             MediaMgr.Initialize();
 
-            Videos = (from el in MediaMgr.VideoMedias select el.Name).ToList();
-            Audios = (from el in MediaMgr.AudioMedias select el.Name).ToList();
-            Images = (from el in MediaMgr.ImageMedias select el.Name).ToList();
+            Media = MediaMgr.VideoMedias.ToList<IMedia>();
         }
 
 

@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IMedia.cs" />
     <Compile Include="MediaAudio.cs" />
     <Compile Include="MediaImage.cs" />
     <Compile Include="MediaVideo.cs" />

@@ -6,23 +6,11 @@ using System.IO;
 
 namespace Model
 {
-    public class MediaImage
+    public class MediaImage : IMedia
     {
         char[] delim = { '/'};
 
         #region Properties
-
-        public string FileName
-        {
-            get;
-            private set;
-        }
-
-        public string Name
-        {
-            get;
-            private set;
-        }
 
         #endregion
 

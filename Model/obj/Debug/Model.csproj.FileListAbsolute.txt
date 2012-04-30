@@ -5,3 +5,10 @@ C:\Users\Tulimyrsky\Desktop\dot net\Model\obj\Debug\Model.dll
 C:\Users\Tulimyrsky\Desktop\dot net\Model\obj\Debug\Model.pdb
 C:\Users\Tulimyrsky\Desktop\dot net\Model\obj\Debug\Interop.WMPLib.dll
 C:\Users\Tulimyrsky\Desktop\dot net\Model\obj\Debug\Model.csproj.ResolveComReference.cache
+C:\Users\Tulimyrsky\Wmp-Roxx\Model\bin\Debug\Model.dll
+C:\Users\Tulimyrsky\Wmp-Roxx\Model\bin\Debug\Model.pdb
+C:\Users\Tulimyrsky\Wmp-Roxx\Model\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Tulimyrsky\Wmp-Roxx\Model\obj\Debug\Interop.WMPLib.dll
+C:\Users\Tulimyrsky\Wmp-Roxx\Model\obj\Debug\Model.csproj.ResolveComReference.cache
+C:\Users\Tulimyrsky\Wmp-Roxx\Model\obj\Debug\Model.dll
+C:\Users\Tulimyrsky\Wmp-Roxx\Model\obj\Debug\Model.pdb
