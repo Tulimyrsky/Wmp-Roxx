@@ -1,0 +1,18 @@
+﻿<Window x:Class="MediaElementTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="452" Width="419">
+    <Grid>
+        <StackPanel >
+            <MediaElement x:Name="myMediaElement" Height="200" UnloadedBehavior="Manual" MediaOpened="Element_MediaOpened" MediaEnded="Element_MediaEnded"></MediaElement>
+            <Label Content="Volume"></Label>
+            <Slider x:Name="volumeSlider" ValueChanged="ChangeMediaVolume"></Slider>
+            <Label Content="Time Line"></Label>
+            <Slider x:Name="timelineSlider" Thumb.DragCompleted="SeekToMediaPosition"></Slider>
+            <Label Content="Speed Ratio"></Label>
+            <Slider x:Name="speedRatioSlider" ValueChanged="ChangeMediaSpeedRatio"></Slider>
+            <Button Content="Play" Click="OnMouseDownPlayMedia" ></Button>
+            <Button Content="Pause" Click="OnMouseDownPauseMedia"></Button>
+        </StackPanel>
+    </Grid>
+</Window>

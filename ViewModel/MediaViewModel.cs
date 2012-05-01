@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Threading;
+using System.Windows.Controls;
 
 namespace ViewModel
 {
@@ -15,14 +16,25 @@ namespace ViewModel
     {
         #region Fields
 
-        private ObservableCollection<IMedia>    m_media;
-        private int                             m_where;
-        private string                          m_mediaFileName;
-        private int                             m_index;
+        private ObservableCollection<IMedia> m_media;
+        private int m_where;
+        private string m_mediaFileName;
+        private int m_index;
+        private TimeSpan _position;
 
         #endregion
 
         #region Properties
+
+        public TimeSpan Position
+        {
+            get { return _position; }
+            set
+            {
+                _position = value;
+                OnPropertyChanged("Position");
+            }
+        }
 
         public ObservableCollection<IMedia> Media
         {
@@ -34,12 +46,13 @@ namespace ViewModel
             }
         }
 
-        public ActionCommand PlayCommand    { get; private set; }
-        public ActionCommand PauseCommand   { get; private set; }
-        public ActionCommand ListCommand    { get; private set; }
-        public ActionCommand FilterCommand  { get; private set; }
+        public ActionCommand PlayCommand { get; private set; }
+        public ActionCommand PauseCommand { get; private set; }
+        public ActionCommand ListCommand { get; private set; }
+        public ActionCommand FilterCommand { get; private set; }
+        public ActionCommand SeekToMedia { get; private set; }
 
-        public int      Index
+        public int Index
         {
             get { return m_index; }
             set
@@ -51,7 +64,7 @@ namespace ViewModel
                 }
             }
         }
-        public int      TabIndex
+        public int TabIndex
         {
             get { return m_where; }
             set
@@ -65,7 +78,7 @@ namespace ViewModel
                 }
             }
         }
-        public string   MediaFilePath
+        public string MediaFilePath
         {
             get { return m_mediaFileName; }
             set
@@ -93,7 +106,7 @@ namespace ViewModel
 
         public MediaViewModel()
         {
-            ListCommand = new ActionCommand()
+        /*    ListCommand = new ActionCommand()
             {
                 ActionP = (object index) =>
                   {
@@ -106,9 +119,18 @@ namespace ViewModel
                               app.Dispatcher.BeginInvoke(DispatcherPriority.Background, new DispatcherOperationCallback(Add), value);
                       }
                   }
-            };
+            };*/
 
-            
+            SeekToMedia = new ActionCommand()
+            {
+                ActionP = (object media) =>
+                    {
+                        MediaElement element = media as MediaElement;
+
+                        if (element.NaturalDuration.HasTimeSpan)
+                            element.Position = Position;
+                    }
+            };
 
 
             PlayCommand = new ActionCommand()
@@ -116,7 +138,7 @@ namespace ViewModel
                 Action = () =>
                 {
                     if (Index > -1 && Index < Media.Count)
-                     {
+                    {
                         MediaFilePath = Media.ElementAt(Index).FileName;
                         if (Play != null)
                             Play.Invoke(this, EventArgs.Empty);

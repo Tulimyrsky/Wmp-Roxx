@@ -1,0 +1,13 @@
+C:\Users\Tulimyrsky\Wmp-Roxx\MediaElementTest\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Tulimyrsky\Wmp-Roxx\MediaElementTest\obj\x86\Debug\MainWindow.baml
+C:\Users\Tulimyrsky\Wmp-Roxx\MediaElementTest\obj\x86\Debug\MainWindow.g.cs
+C:\Users\Tulimyrsky\Wmp-Roxx\MediaElementTest\obj\x86\Debug\App.g.cs
+C:\Users\Tulimyrsky\Wmp-Roxx\MediaElementTest\obj\x86\Debug\MediaElementTest_MarkupCompile.cache
+C:\Users\Tulimyrsky\Wmp-Roxx\MediaElementTest\obj\x86\Debug\MediaElementTest.g.resources
+C:\Users\Tulimyrsky\Wmp-Roxx\MediaElementTest\obj\x86\Debug\MediaElementTest.Properties.Resources.resources
+C:\Users\Tulimyrsky\Wmp-Roxx\MediaElementTest\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Tulimyrsky\Wmp-Roxx\MediaElementTest\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Tulimyrsky\Wmp-Roxx\MediaElementTest\bin\Debug\MediaElementTest.exe
+C:\Users\Tulimyrsky\Wmp-Roxx\MediaElementTest\bin\Debug\MediaElementTest.pdb
+C:\Users\Tulimyrsky\Wmp-Roxx\MediaElementTest\obj\x86\Debug\MediaElementTest.exe
+C:\Users\Tulimyrsky\Wmp-Roxx\MediaElementTest\obj\x86\Debug\MediaElementTest.pdb
