@@ -9,15 +9,19 @@ namespace ViewModel
     
     public class ActionCommand : ICommand
     {
-        public Action         Action { get; set; }
-        public Action<object> ActionP { get; set; }
+        public Action         Action    { get; set; }
+        public Action<object> ActionP   { get; set; }
+
+        public event EventHandler CanExecuteChanged;
+
+        public ActionCommand()
+        {
+        }
 
         public bool CanExecute(object parameter)
         {
             return true;
         }
-
-        public event EventHandler CanExecuteChanged;
 
         public void Execute(object parameter)
         {

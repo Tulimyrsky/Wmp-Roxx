@@ -8,9 +8,10 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MediaPlayerMvvmSample"
         mc:Ignorable="d" x:Class="MediaPlayerMvvmSample.MainWindow"
-        Title="MainWindow" Height="366" Width="735">
+        Title="MainWindow" Height="390" Width="1084">
     <Window.DataContext>
         <ViewModel:MediaViewModel/>
     </Window.DataContext>
@@ -31,19 +32,28 @@
                 <i:EventTrigger SourceObject="{Binding}" EventName="Pause">
                     <ei:CallMethodAction TargetObject="{Binding ElementName=mediaElement}" MethodName="Pause"/>
                 </i:EventTrigger>
+                <!--<i:EventTrigger SourceObject="{Binding}" EventName="PropertyChanged">
+                    <ei:CallMethodAction TargetObject="{Binding ElementName=list}" MethodName="SourceUpdated"/>
+                </i:EventTrigger>-->
             </i:Interaction.Triggers>
         </MediaElement>
-        <Button Content="&gt;" Margin="0" Grid.Row="1" d:LayoutOverrides="Height" Width="33.841" HorizontalAlignment="Left" Command="{Binding PlayCommand, Mode=OneWay}"/>
+        <Button Content="&gt;" Margin="0" Grid.Row="1" d:LayoutOverrides="Height" Width="33.841" HorizontalAlignment="Left" Command="{Binding PlayCommand, Mode=OneWay}" Click="Button_Click" />
         <Button Content="=" Margin="33.841,0,0,0" Grid.Row="1" Command="{Binding PauseCommand, Mode=OneWay}"/>
         <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Margin="0" Width="5"/>
+        <local:CheckFilters Width="150" Height="25" Margin="485,27,43,279" Text="Filters">
+            <ComboBoxItem>Name</ComboBoxItem>
+            <ComboBoxItem>Title</ComboBoxItem>
+            <ComboBoxItem>Artist</ComboBoxItem>
+            <ComboBoxItem>Album</ComboBoxItem>
+            <ComboBoxItem>Year</ComboBoxItem>
+        </local:CheckFilters>
         <TabControl Height="308" HorizontalAlignment="Left" Name="tabControl1" VerticalAlignment="Top" Width="455" SelectionChanged="tabControl1_SelectionChanged" SelectedIndex="{Binding TabIndex}" Grid.ColumnSpan="2">
             <TabItem Header="Video" Name="Video">
                 <Grid>
-                    <ListBox ItemsSource="{Binding Media}" SelectedIndex="{Binding Index}" Margin="6" SelectionChanged="ListBox_SelectionChanged">
+                    <ListBox  ItemsSource="{Binding Media}" SelectedIndex="{Binding Index}" Margin="6">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel>
-                                    <TextBlock Text="{Binding Path=FileName}"></TextBlock>
                                     <TextBlock Text="{Binding Path=Name}"></TextBlock>
                                     <TextBlock Text="{Binding Path=Artist}"></TextBlock>
                                     <TextBlock Text="{Binding Path=Album}"></TextBlock>
@@ -55,7 +65,7 @@
             </TabItem>
             <TabItem Header="Audio" Name="Audio">
                 <Grid>
-                    <ListBox ItemsSource="{Binding Media}" SelectedIndex="{Binding Index}" Margin="6,6,6,0" SelectionChanged="ListBox_SelectionChanged">
+                    <ListBox ItemsSource="{Binding Media}" SelectedIndex="{Binding Index}" Margin="6,6,6,0" >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel>
@@ -71,7 +81,18 @@
             </TabItem>
             <TabItem Header="Image" Name="Image">
                 <Grid>
-                    <ListBox ItemsSource="{Binding Media}" SelectedIndex="{Binding Index}" Margin="6" SelectionChanged="ListBox_SelectionChanged" />
+                    <ListBox ItemsSource="{Binding Media}" SelectedIndex="{Binding Index}" Margin="6">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Path=FileName}"></TextBlock>
+                                    <TextBlock Text="{Binding Path=Name}"></TextBlock>
+                                    <TextBlock Text="{Binding Path=Artist}"></TextBlock>
+                                    <TextBlock Text="{Binding Path=Album}"></TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </Grid>
             </TabItem>
         </TabControl>

@@ -18,14 +18,8 @@ namespace Model
 
         public MediaImage(string _file)
         {
-            String extension = Path.GetExtension(_file);
-            Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(extension);
-            if (key.GetValue("Content Type") != null && key.GetValue("Content Type").ToString().Split(delim)[0] == "image")
-            {
-                FileName = _file;
-                Name = Path.GetFileNameWithoutExtension(FileName);
-            }
- 
+            FileName = _file;
+            Name = Path.GetFileNameWithoutExtension(FileName);
         }
 
         #endregion

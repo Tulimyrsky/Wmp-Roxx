@@ -13,35 +13,31 @@ namespace ViewModel
     {
         #region Fields
 
-        private List<IMedia> m_media;
-        private int m_where;
-        private string m_mediaFileName;
-        private int m_index;
+        private ObservableCollection<IMedia>    m_media;
+        private int                             m_where;
+        private string                          m_mediaFileName;
+        private int                             m_index;
 
         #endregion
 
         #region Properties
 
-        public List<IMedia> Media
+        public ObservableCollection<IMedia> Media
         {
-            get
-            { return m_media; }
+            get { return m_media; }
             set
             {
-                if (m_media != value)
-                {
-
-                    m_media = value;
-                    OnPropertyChanged("Media");
-                }
+                m_media = value;
+                OnPropertyChanged("Media");
             }
         }
 
-        public ActionCommand PlayCommand { get; private set; }
-        public ActionCommand PauseCommand { get; private set; }
-        public ActionCommand ListCommand { get; private set; }
+        public ActionCommand PlayCommand    { get; private set; }
+        public ActionCommand PauseCommand   { get; private set; }
+        public ActionCommand ListCommand    { get; private set; }
+        public ActionCommand FilterCommand  { get; private set; }
 
-        public int Index
+        public int      Index
         {
             get { return m_index; }
             set
@@ -53,8 +49,7 @@ namespace ViewModel
                 }
             }
         }
-
-        public int TabIndex
+        public int      TabIndex
         {
             get { return m_where; }
             set
@@ -63,11 +58,12 @@ namespace ViewModel
                 {
                     m_where = value;
                     OnPropertyChanged("TabIndex");
+                    if (Enum.IsDefined(typeof(Model.Medias), m_where))
+                        Media = MediaMgr.getList((Model.Medias)m_where);
                 }
             }
         }
-
-        public string MediaFilePath
+        public string   MediaFilePath
         {
             get { return m_mediaFileName; }
             set
@@ -79,7 +75,6 @@ namespace ViewModel
                 }
             }
         }
-
 
         #endregion
 
@@ -100,22 +95,9 @@ namespace ViewModel
             {
                 ActionP = (object index) =>
                   {
-                      switch (index.ToString())
-                      {
-                          case "1" :
-                              m_media = MediaMgr.VideoMedias.ToList<IMedia>();
-                              break;
-                          case "2" :
-                              m_media = MediaMgr.AudioMedias.ToList<IMedia>();
-                              break;
-                          case "3" :
-                              m_media = MediaMgr.ImageMedias.ToList<IMedia>();
-                              break;
-                          default :
-                              Console.WriteLine("++++++++++++++++++++++++Mega prout tu prends cher babtard +++++ " + index.ToString());
-                              break;
-                      }
-                      
+                      int value;
+                      if (Int32.TryParse(index.ToString(), out value) && Enum.IsDefined(typeof(Model.Medias), value))
+                          m_media = MediaMgr.getList(Medias.AUDIO);
                   }
             };
 
@@ -123,15 +105,9 @@ namespace ViewModel
             {
                 Action = () =>
                 {
-                    if (Index > -1)
-                    {
-                        if (m_where == 0)
-                            MediaFilePath = MediaMgr.VideoMedias.ElementAt(Index).FileName;
-                        else if (m_where == 1)
-                            MediaFilePath = MediaMgr.AudioMedias.ElementAt(Index).FileName;
-                        else
-                            MediaFilePath = MediaMgr.ImageMedias.ElementAt(Index).FileName;
-
+                    if (Index > -1 && Index < Media.Count)
+                     {
+                        MediaFilePath = Media.ElementAt(Index).FileName;
                         if (Play != null)
                             Play.Invoke(this, EventArgs.Empty);
                     }
@@ -147,21 +123,18 @@ namespace ViewModel
                 }
             };
 
-            m_media = new List<IMedia>();
-
-            Initialze();
+            m_media = new ObservableCollection<IMedia>();
+            Initialize();
         }
 
         #endregion
 
         #region Method
 
-
-        public void Initialze()
+        public void Initialize()
         {
             MediaMgr.Initialize();
-
-            Media = MediaMgr.VideoMedias.ToList<IMedia>();
+            Media = MediaMgr.getList(Medias.VIDEO);
         }
 
 

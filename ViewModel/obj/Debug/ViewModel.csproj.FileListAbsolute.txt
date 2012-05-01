@@ -12,3 +12,10 @@ C:\Users\Tulimyrsky\Wmp-Roxx\ViewModel\bin\Debug\Model.pdb
 C:\Users\Tulimyrsky\Wmp-Roxx\ViewModel\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Tulimyrsky\Wmp-Roxx\ViewModel\obj\Debug\ViewModel.dll
 C:\Users\Tulimyrsky\Wmp-Roxx\ViewModel\obj\Debug\ViewModel.pdb
+C:\Users\Kayzer\Wmp-Roxx\ViewModel\bin\Debug\ViewModel.dll
+C:\Users\Kayzer\Wmp-Roxx\ViewModel\bin\Debug\ViewModel.pdb
+C:\Users\Kayzer\Wmp-Roxx\ViewModel\bin\Debug\Model.dll
+C:\Users\Kayzer\Wmp-Roxx\ViewModel\bin\Debug\Model.pdb
+C:\Users\Kayzer\Wmp-Roxx\ViewModel\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Kayzer\Wmp-Roxx\ViewModel\obj\Debug\ViewModel.dll
+C:\Users\Kayzer\Wmp-Roxx\ViewModel\obj\Debug\ViewModel.pdb

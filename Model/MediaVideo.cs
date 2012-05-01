@@ -18,13 +18,8 @@ namespace Model
 
         public MediaVideo(string _file)
         {
-            String extension = Path.GetExtension(_file);
-            Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(extension);
-            if (key.GetValue("Content Type") != null && key.GetValue("Content Type").ToString().Split(delim)[0] == "video")
-            {
-                FileName = _file;
-                Name = Path.GetFileNameWithoutExtension(_file);
-            }                 
+            FileName = _file;
+            Name = Path.GetFileNameWithoutExtension(_file);                 
         }
 
         #endregion

@@ -11,9 +11,11 @@ namespace Model
     {
         #region Properties
 
-        public static ReadOnlyCollection<MediaVideo> VideoMedias { get; private set; }
-        public static ReadOnlyCollection<MediaAudio> AudioMedias { get; private set; }
-        public static ReadOnlyCollection<MediaImage> ImageMedias { get; private set; }
+        private static ObservableCollection<IMedia> VideoMedias { get; set; }
+        private static ObservableCollection<IMedia> AudioMedias { get; set; }
+        private static ObservableCollection<IMedia> ImageMedias { get; set; }
+        private static Dictionary<Medias, ObservableCollection<IMedia>> all;
+
 
         #endregion
 
@@ -21,15 +23,61 @@ namespace Model
 
         public static void Initialize()
         {
+            VideoMedias = new ObservableCollection<IMedia>();
+            AudioMedias = new ObservableCollection<IMedia>();
+            ImageMedias = new ObservableCollection<IMedia>();
 
-            string videoFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
+            loadFolder(Environment.GetFolderPath(Environment.SpecialFolder.CommonPictures));
+            loadFolder(Environment.GetFolderPath(Environment.SpecialFolder.CommonMusic));
+            loadFolder(Environment.GetFolderPath(Environment.SpecialFolder.CommonVideos));
+            loadFolder(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic));
+            loadFolder(Environment.GetFolderPath(Environment.SpecialFolder.MyVideos));
+            loadFolder(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures));
 
-            VideoMedias = (from el in Directory.GetFiles(videoFolder, "*", SearchOption.AllDirectories)
-                        select new MediaVideo(el)).ToList().AsReadOnly();
-            AudioMedias = (from el in Directory.GetFiles(videoFolder, "*", SearchOption.AllDirectories)
-                        select new MediaAudio(el)).ToList().AsReadOnly();
-            ImageMedias = (from el in Directory.GetFiles(videoFolder, "*", SearchOption.AllDirectories)
-                        select new MediaImage(el)).ToList().AsReadOnly();
+            all = new Dictionary<Medias, ObservableCollection<IMedia>>();
+            all.Add(Medias.VIDEO, VideoMedias);
+            all.Add(Medias.AUDIO, AudioMedias);
+            all.Add(Medias.IMAGE, ImageMedias);
+        }
+
+        public static void loadFolder(string folder)
+        {
+            try
+            {
+                foreach (string file in Directory.GetFiles(folder, "*", SearchOption.AllDirectories))
+                    loadMedia(file);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("=============== ACCESS FOLDER " + folder + " ERROR: "  + e.Message);
+            }
+        }
+
+        public static void loadMedia(string file)
+        {
+            char[] delim = { '/'};
+            String extension = Path.GetExtension(file);
+            Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(extension);
+            if (key.GetValue("Content Type") != null)
+            {
+                switch (key.GetValue("Content Type").ToString().Split(delim)[0])
+                {
+                    case "video":
+                        VideoMedias.Add(new MediaVideo(file));
+                        break;
+                    case "audio":
+                        AudioMedias.Add(new MediaAudio(file));
+                        break;
+                    case "image":
+                        ImageMedias.Add(new MediaImage(file));
+                        break;
+                }
+            }
+        }
+
+        public static ObservableCollection<IMedia> getList(Medias index)
+        {
+            return all[index];
         }
 
         #endregion
