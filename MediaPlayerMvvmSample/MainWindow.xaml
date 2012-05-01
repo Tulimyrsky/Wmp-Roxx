@@ -81,7 +81,7 @@
             </TabItem>
             <TabItem Header="Image" Name="Image">
                 <Grid>
-                    <ListBox ItemsSource="{Binding Media}" SelectedIndex="{Binding Index}" Margin="6">
+                    <ListBox  ItemsSource="{Binding Media}" SelectedIndex="{Binding Index}" Margin="6">                 
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel>

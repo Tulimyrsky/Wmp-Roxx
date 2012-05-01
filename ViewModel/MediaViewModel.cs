@@ -95,9 +95,25 @@ namespace ViewModel
             {
                 ActionP = (object index) =>
                   {
+<<<<<<< HEAD
                       int value;
                       if (Int32.TryParse(index.ToString(), out value) && Enum.IsDefined(typeof(Model.Medias), value))
                           m_media = MediaMgr.getList(Medias.AUDIO);
+=======
+                      switch ((int)index)
+                      {
+                          case 0 :
+                              m_media = MediaMgr.VideoMedias.ToList<IMedia>();
+                              break;
+                          case 1 :
+                              m_media = MediaMgr.AudioMedias.ToList<IMedia>();
+                              break;
+                          case 2 :
+                              m_media = MediaMgr.ImageMedias.ToList<IMedia>();
+                              break;
+                      }
+                      
+>>>>>>> 1703024ef8aa0db953c8820b2bf1ec4263136f5f
                   }
             };
 
