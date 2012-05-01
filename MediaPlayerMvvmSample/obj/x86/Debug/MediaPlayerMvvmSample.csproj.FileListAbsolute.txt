@@ -104,3 +104,8 @@ C:\Users\Kayzer\Wmp-Roxx\MediaPlayerMvvmSample\obj\x86\Debug\UserControl1.g.cs
 C:\Users\Kayzer\Wmp-Roxx\MediaPlayerMvvmSample\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\Kayzer\Wmp-Roxx\MediaPlayerMvvmSample\obj\x86\Debug\MediaPlayerMvvmSample_MarkupCompile.lref
 C:\Users\Kayzer\Wmp-Roxx\MediaPlayerMvvmSample\obj\x86\Debug\Themes\Generic.baml
+C:\Users\Tulimyrsky\Wmp-Roxx\MediaPlayerMvvmSample\obj\x86\Debug\UserControl1.baml
+C:\Users\Tulimyrsky\Wmp-Roxx\MediaPlayerMvvmSample\obj\x86\Debug\UserControl1.g.cs
+C:\Users\Tulimyrsky\Wmp-Roxx\MediaPlayerMvvmSample\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Tulimyrsky\Wmp-Roxx\MediaPlayerMvvmSample\obj\x86\Debug\MediaPlayerMvvmSample_MarkupCompile.lref
+C:\Users\Tulimyrsky\Wmp-Roxx\MediaPlayerMvvmSample\obj\x86\Debug\Themes\Generic.baml
