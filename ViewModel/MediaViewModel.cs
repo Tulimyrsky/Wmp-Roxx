@@ -6,6 +6,8 @@ using System.IO;
 using Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
+using System.Windows.Threading;
 
 namespace ViewModel
 {
@@ -96,10 +98,18 @@ namespace ViewModel
                 ActionP = (object index) =>
                   {
                       int value;
+
                       if (Int32.TryParse(index.ToString(), out value) && Enum.IsDefined(typeof(Model.Medias), value))
-                          m_media = MediaMgr.getList((Medias)value);
+                      {
+                          Application app = System.Windows.Application.Current;
+                          if (app != null)
+                              app.Dispatcher.BeginInvoke(DispatcherPriority.Background, new DispatcherOperationCallback(Add), value);
+                      }
                   }
             };
+
+            
+
 
             PlayCommand = new ActionCommand()
             {
@@ -125,6 +135,12 @@ namespace ViewModel
 
             m_media = new ObservableCollection<IMedia>();
             Initialize();
+        }
+
+        private object Add(object value)
+        {
+            m_media = MediaMgr.getList((Medias)value);
+            return null;
         }
 
         #endregion
