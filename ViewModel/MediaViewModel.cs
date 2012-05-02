@@ -20,19 +20,19 @@ namespace ViewModel
         private int m_where;
         private string m_mediaFileName;
         private int m_index;
-        private TimeSpan _position;
+        private ObservableCollection<IMedia> _playlist;
 
         #endregion
 
         #region Properties
 
-        public TimeSpan Position
-        {
-            get { return _position; }
-            set
+        public ObservableCollection<IMedia> Playlist 
+        { 
+            get {return _playlist;} 
+            set 
             {
-                _position = value;
-                OnPropertyChanged("Position");
+                _playlist = value;
+                OnPropertyChanged("Playlist");
             }
         }
 
@@ -47,10 +47,10 @@ namespace ViewModel
         }
 
         public ActionCommand PlayCommand { get; private set; }
+        public ActionCommand StopCommand { get; private set; }
         public ActionCommand PauseCommand { get; private set; }
-        public ActionCommand ListCommand { get; private set; }
-        public ActionCommand FilterCommand { get; private set; }
-        public ActionCommand SeekToMedia { get; private set; }
+        public ActionCommand AddItemToPlaylist { get; private set;}
+        public ActionCommand DelItemFromPlaylist {get; private set;}
 
         public int Index
         {
@@ -64,6 +64,7 @@ namespace ViewModel
                 }
             }
         }
+
         public int TabIndex
         {
             get { return m_where; }
@@ -99,6 +100,7 @@ namespace ViewModel
 
         public event EventHandler Play;
         public event EventHandler Pause;
+        public event EventHandler Stop;
 
         #endregion
 
@@ -106,32 +108,25 @@ namespace ViewModel
 
         public MediaViewModel()
         {
-        /*    ListCommand = new ActionCommand()
+            AddItemToPlaylist = new ActionCommand()
             {
-                ActionP = (object index) =>
-                  {
-                      int value;
-
-                      if (Int32.TryParse(index.ToString(), out value) && Enum.IsDefined(typeof(Model.Medias), value))
-                      {
-                          Application app = System.Windows.Application.Current;
-                          if (app != null)
-                              app.Dispatcher.BeginInvoke(DispatcherPriority.Background, new DispatcherOperationCallback(Add), value);
-                      }
-                  }
-            };*/
-
-            SeekToMedia = new ActionCommand()
-            {
-                ActionP = (object media) =>
-                    {
-                        MediaElement element = media as MediaElement;
-
-                        if (element.NaturalDuration.HasTimeSpan)
-                            element.Position = Position;
-                    }
+                Action = () =>
+                {
+                    if (Index > -1 && Index < Media.Count && !Playlist.Contains<IMedia>(Media.ElementAt(Index)))
+                        Playlist.Add(Media.ElementAt(Index));
+                }
             };
 
+            DelItemFromPlaylist = new ActionCommand()
+            {
+                Action = () =>
+                    {
+                        if (Index > -1 && Index < Playlist.Count)
+                        {
+                            Playlist.RemoveAt(Index);
+                        }
+                    }
+            };
 
             PlayCommand = new ActionCommand()
             {
@@ -142,6 +137,19 @@ namespace ViewModel
                         MediaFilePath = Media.ElementAt(Index).FileName;
                         if (Play != null)
                             Play.Invoke(this, EventArgs.Empty);
+                    }
+                }
+            };
+
+            StopCommand = new ActionCommand()
+            {
+                Action = () =>
+                {
+                    if (MediaFilePath != null)
+                    {
+                        if (Stop != null)
+                            Stop.Invoke(this, EventArgs.Empty);
+                        MediaFilePath = null;
                     }
                 }
             };
@@ -173,6 +181,7 @@ namespace ViewModel
         {
             MediaMgr.Initialize();
             Media = MediaMgr.getList(Medias.VIDEO);
+            Playlist = new ObservableCollection<IMedia>();
         }
 
 

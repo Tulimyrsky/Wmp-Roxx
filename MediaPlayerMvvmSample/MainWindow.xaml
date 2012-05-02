@@ -24,12 +24,14 @@
             <ColumnDefinition Width="510*"/>
             <ColumnDefinition Width="552*"/>
         </Grid.ColumnDefinitions>
-        <MediaElement x:Name="mediaElement" Grid.Column="1" Source="{Binding MediaFilePath, Mode=OneWay}" Grid.RowSpan="2" 
-                      Volume="{Binding ElementName=Volume, Path=Value}"
-                      LoadedBehavior="Manual" Margin="5,0,0,0">
+        <MediaElement x:Name="mediaElement" Grid.Column="1" Source="{Binding MediaFilePath, Mode=OneWay}" Volume="{Binding ElementName=Volume, Path=Value}"
+                      LoadedBehavior="Manual" Margin="5,0,0,39">
             <i:Interaction.Triggers>
                 <i:EventTrigger SourceObject="{Binding}" EventName="Play">
                     <ei:CallMethodAction TargetObject="{Binding ElementName=mediaElement}" MethodName="Play"/>
+                </i:EventTrigger>
+                <i:EventTrigger SourceObject="{Binding}" EventName="Stop">
+                    <ei:CallMethodAction TargetObject="{Binding ElementName=mediaElement}" MethodName="Stop"/>
                 </i:EventTrigger>
                 <i:EventTrigger SourceObject="{Binding}" EventName="Pause">
                     <ei:CallMethodAction TargetObject="{Binding ElementName=mediaElement}" MethodName="Pause"/>
@@ -40,19 +42,19 @@
             </i:Interaction.Triggers>
         </MediaElement>
         <Button Content="&gt;" Margin="0" Grid.Row="1" d:LayoutOverrides="Height" Width="33.841" HorizontalAlignment="Left" Command="{Binding PlayCommand, Mode=OneWay}"/>
-        <Button Content="=" Margin="33.841,0,0,0" Grid.Row="1" Command="{Binding PauseCommand, Mode=OneWay}"/>
+        <Button Content="=" Margin="33.841,0,244,0" Grid.Row="1" Command="{Binding PauseCommand, Mode=OneWay}"/>
         <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Width="0"/>
-        <local:CheckFilters Height="25" Margin="358,27,52,279" Text="Filters">
+        <!--<local:CheckFilters Height="25" Margin="358,27,52,279" Text="Filters">
             <ComboBoxItem>Name</ComboBoxItem>
             <ComboBoxItem>Title</ComboBoxItem>
             <ComboBoxItem>Artist</ComboBoxItem>
             <ComboBoxItem>Album</ComboBoxItem>
             <ComboBoxItem>Year</ComboBoxItem>
-        </local:CheckFilters>
+        </local:CheckFilters>-->
         <TabControl Height="308" HorizontalAlignment="Left" Name="tabControl1" VerticalAlignment="Top" Width="325"  SelectedIndex="{Binding TabIndex}">
             <TabItem Header="Video" Name="Video">
                 <Grid>
-                    <ListBox  ItemsSource="{Binding Media}" SelectedIndex="{Binding Index}" Margin="6,6,0,6" HorizontalAlignment="Left" Width="433">
+                    <ListBox  ItemsSource="{Binding Media}" SelectedIndex="{Binding Index}" Margin="6,6,0,6" HorizontalAlignment="Left" Width="303">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel>
@@ -97,20 +99,34 @@
                     </ListBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="Playlist" Name="Playlist"></TabItem>
+            <TabItem Header="Playlist" Name="Playlist">
+                <ListBox  ItemsSource="{Binding Playlist}" SelectedIndex="{Binding Index}" Margin="6,6,0,6" HorizontalAlignment="Left" Width="303">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Path=Name}"></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </TabItem>
         </TabControl>
-        <Slider Height="23" HorizontalAlignment="Left" Margin="95,308,0,0" Name="TimeLine" VerticalAlignment="Top" Width="415"
+        <Slider Height="23" HorizontalAlignment="Left" Margin="78,308,0,0" Name="TimeLine" VerticalAlignment="Top" Width="396"
                 Minimum="0"
                 Maximum="{Binding ElementName=mediaElement, Path=NaturalDuration.TimeSpan.TotalMilliseconds, Mode=OneWay}"
                 ValueChanged="sliderPositionChanged"
-                Thumb.DragCompleted="DragEnd"
-                />
-        <Slider Height="23" HorizontalAlignment="Left" Margin="358,269,0,0" Name="Volume" VerticalAlignment="Top" Width="100" 
+                Thumb.DragStarted="DragBegin"
+                Thumb.DragCompleted="DragEnd" Grid.Column="1" />
+        <Slider Height="23" HorizontalAlignment="Left" Margin="410,308,0,0" Name="Volume" VerticalAlignment="Top" Width="100" 
                 Minimum="0"
                 Maximum="100"
                 ValueChanged="VolumeChanged"
                 />
-        <TextBlock Height="23" HorizontalAlignment="Left" Margin="0,308,0,0" Name="TimeValue" VerticalAlignment="Center" Width="89">00:00:00</TextBlock>
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="0,308,0,0" Name="TimeValue" VerticalAlignment="Center" Width="72" Grid.Column="1">00:00:00</TextBlock>
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="480,308,0,0" Name="TotalTime" VerticalAlignment="Center" Width="72" Grid.Column="1">00:00:00</TextBlock>
+        <Button  Content="Stop;" HorizontalAlignment="Left" Margin="272,0,0,0" Width="238" Grid.Row="1" Command="{Binding StopCommand, Mode=OneWay}"/>
+        <Button Command="{Binding AddItemToPlaylist, Mode=OneWay}" Content="Add" Margin="34,306,372,0" />
+        <Button Command="{Binding DelItemFromPlaylist, Mode=OneWay}" Content="Del" Margin="144,306,244,0" />
         <!--<ProgressBar  Height="23" HorizontalAlignment="Left" Margin="0,308,0,0" Name="TimeLine" VerticalAlignment="Top" Width="478"
                     Minimum="0"
                     Maximum="{Binding Path=NaturalDuration.TimeSpan.TotalSeconds, Mode=OneWay, ElementName=mediaElement}"

@@ -31,26 +31,43 @@ namespace MediaPlayerMvvmSample
             Ticker.Interval = new TimeSpan(0, 0, 0, 0, 200);
             Ticker.Tick += Tick;
             mediaElement.MediaOpened += Element_MediaOpened;
+            mediaElement.MediaEnded += Element_MediaEnded;
+        }
+
+        private void Element_MediaEnded(object sender, EventArgs e)
+        {
+            Ticker.Stop();
+            mediaElement.Stop();
+            //InitMediaElement();
+        }
+
+        private void InitMediaElement()
+        {
+            TotalTime.Text =
+                String.Format("{0:00}:{1:00}:{2:00}",
+                0, 0, 0);
         }
 
         private void Element_MediaOpened(object sender, EventArgs e)
         {
+            Ticker.Start();
             TimeLine.Maximum = mediaElement.NaturalDuration.TimeSpan.TotalMilliseconds;
+            TimeSpan ts = TimeSpan.FromMilliseconds(TimeLine.Maximum);
+            TotalTime.Text =
+                String.Format("{0:00}:{1:00}:{2:00}",
+                ts.Hours, ts.Minutes, ts.Seconds);
         }
 
         private void Tick(object sender, EventArgs e)
         {
+            TimeSpan ts = TimeSpan.FromMilliseconds(mediaElement.Position.TotalMilliseconds);
+            TimeValue.Text =
+                String.Format("{0:00}:{1:00}:{2:00}",
+                ts.Hours, ts.Minutes, ts.Seconds);
             TimeLine.Value = mediaElement.Position.TotalMilliseconds;
         }
 
-        private void BeginMedia(object sender, EventArgs e)
-        {
-            if (mediaElement.NaturalDuration.HasTimeSpan)
-                TimeLine.Maximum = mediaElement.NaturalDuration.TimeSpan.Ticks;
-        }
-
-        private void sliderPositionChanged(
-            object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void sliderPositionChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             TimeSpan ts = TimeSpan.FromMilliseconds(e.NewValue);
             TimeValue.Text =
@@ -64,10 +81,15 @@ namespace MediaPlayerMvvmSample
             mediaElement.Volume = Volume.Value;
         }
 
+        private void DragBegin(
+            object sender, DragStartedEventArgs e)
+        {
+            Ticker.Tick -= Tick;
+        }
+
         private void DragEnd(
             object sender, DragCompletedEventArgs e)
         {
-            Ticker.Tick -= Tick;
             mediaElement.Position = new TimeSpan(0, 0, 0, 0, Convert.ToInt32(TimeLine.Value));
             Ticker.Tick += Tick;
         }
