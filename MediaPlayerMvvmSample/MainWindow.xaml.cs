@@ -38,7 +38,14 @@ namespace MediaPlayerMvvmSample
         {
             Ticker.Stop();
             mediaElement.Stop();
-            //InitMediaElement();
+            ViewModel.MediaViewModel vm = DataContext as ViewModel.MediaViewModel;
+
+            if (vm != null)
+            {
+                CommandBinding cb = new CommandBinding(vm.NextSong);
+
+                cb.Command.Execute(this.mediaElement);
+            }
         }
 
         private void InitMediaElement()
@@ -51,11 +58,14 @@ namespace MediaPlayerMvvmSample
         private void Element_MediaOpened(object sender, EventArgs e)
         {
             Ticker.Start();
-            TimeLine.Maximum = mediaElement.NaturalDuration.TimeSpan.TotalMilliseconds;
-            TimeSpan ts = TimeSpan.FromMilliseconds(TimeLine.Maximum);
-            TotalTime.Text =
-                String.Format("{0:00}:{1:00}:{2:00}",
-                ts.Hours, ts.Minutes, ts.Seconds);
+            if (mediaElement.NaturalDuration.HasTimeSpan)
+            {
+                TimeLine.Maximum = mediaElement.NaturalDuration.TimeSpan.TotalMilliseconds;
+                TimeSpan ts = TimeSpan.FromMilliseconds(TimeLine.Maximum);
+                TotalTime.Text =
+                    String.Format("{0:00}:{1:00}:{2:00}",
+                    ts.Hours, ts.Minutes, ts.Seconds);
+            }
         }
 
         private void Tick(object sender, EventArgs e)
@@ -93,5 +103,6 @@ namespace MediaPlayerMvvmSample
             mediaElement.Position = new TimeSpan(0, 0, 0, 0, Convert.ToInt32(TimeLine.Value));
             Ticker.Tick += Tick;
         }
+
     }
 }

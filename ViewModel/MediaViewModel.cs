@@ -19,8 +19,9 @@ namespace ViewModel
         private ObservableCollection<IMedia> m_media;
         private int m_where;
         private string m_mediaFileName;
-        private int m_index;
+        private int                         m_index;
         private ObservableCollection<IMedia> _playlist;
+        private int                                 _curSongIndex;
 
         #endregion
 
@@ -51,6 +52,7 @@ namespace ViewModel
         public ActionCommand PauseCommand { get; private set; }
         public ActionCommand AddItemToPlaylist { get; private set;}
         public ActionCommand DelItemFromPlaylist {get; private set;}
+        public ActionCommand NextSong { get; private set; }
 
         public int Index
         {
@@ -79,6 +81,7 @@ namespace ViewModel
                 }
             }
         }
+
         public string MediaFilePath
         {
             get { return m_mediaFileName; }
@@ -132,13 +135,31 @@ namespace ViewModel
             {
                 Action = () =>
                 {
+                    _curSongIndex = Index;
                     if (Index > -1 && Index < Media.Count)
                     {
+                        _curSongIndex = Index;
                         MediaFilePath = Media.ElementAt(Index).FileName;
                         if (Play != null)
                             Play.Invoke(this, EventArgs.Empty);
                     }
                 }
+            };
+
+            NextSong = new ActionCommand()
+            {
+                Action = () =>
+                    {
+                        if (_curSongIndex > -1 && _curSongIndex < Playlist.Count)
+                        {
+                            _curSongIndex += 1;
+                            Index = _curSongIndex;
+                            PlayCommand.Action();
+                        }
+                        else
+                            _curSongIndex = -1;
+                        
+                    }
             };
 
             StopCommand = new ActionCommand()
